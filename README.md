@@ -49,10 +49,8 @@ As of the current version of the mobile application, it is currently capable of 
 - [React-navigation-material-bottom-tabs](https://github.com/react-navigation/react-navigation-material-bottom-tabs)
 - [ShortID](https://github.com/dylang/shortid)
 - [Styled-components](https://github.com/styled-components/styled-components)
-- [React-Native material buttons](https://github.com/n4kz/react-native-material-buttons)
-- [React-Native-Modal](https://github.com/react-native-community/react-native-modal)
-- [React-Native-Extra-Dimensions-Android](https://github.com/Sunhat/react-native-extra-dimensions-android)
 - [MomentJS](https://github.com/moment/moment/)
+- [React-Native-Maps](https://github.com/react-native-community/react-native-maps)
 
 ## Getting started
 
