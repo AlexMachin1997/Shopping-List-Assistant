@@ -43,7 +43,6 @@ As of the current version of the mobile application, it is currently capable of 
 - [Metro bundler](https://github.com/facebook/metro)
 - [Expo-cli](https://docs.expo.io/versions/latest/workflow/expo-cli/)
 - [Babel](https://babeljs.io/)
-- [Yarn](https://yarnpkg.com/en/)
 - [React Navigation](https://reactnavigation.org/)
 - [React-Native-vector-icons](https://github.com/oblador/react-native-vector-icons)
 - [React-navigation](https://reactnavigation.org/)
@@ -51,8 +50,9 @@ As of the current version of the mobile application, it is currently capable of 
 - [ShortID](https://github.com/dylang/shortid)
 - [Styled-components](https://github.com/styled-components/styled-components)
 - [React-Native material buttons](https://github.com/n4kz/react-native-material-buttons)
-
-**NOTE**: Dependencies may be swapped out occasionally as there maybe better alternatives. For example Axio might be swapped out for the native fetch api, but in the current build it will be used to perform HTTP requests to API like [this example](https://github.com/AlexMachin1997/RESTful-API-Interface)
+- [React-Native-Modal](https://github.com/react-native-community/react-native-modal)
+- [React-Native-Extra-Dimensions-Android](https://github.com/Sunhat/react-native-extra-dimensions-android)
+- [MomentJS](https://github.com/moment/moment/)
 
 ## Getting started
 
@@ -63,6 +63,7 @@ As of the current version of the mobile application, it is currently capable of 
   - Install the IDE
 
   - Click SDK manager within Android Studio settings.
+
   - Go to the SDK platforms tools and perform the following
 
     - Click show all package details and go to the latest version of Android
@@ -124,7 +125,11 @@ As of the current version of the mobile application, it is currently capable of 
   - Run `react-native run-android` (This will take a long time on the inital build, but the second time around it will take seconds)
   - If you have the emulator running it will run on that device
   - If you have a physical device attached it will run on that device
-  - **Note**: Only one device can run at once
+  - **Note**: If when you run `react-native run-android` and you get **"Could not find tools.jar"** complete the following:
+    - install [Chocolatey](https://chocolatey.org/)
+    - Run `choco install -y nodejs.install python2 jdk8` as a windows admin
+    - Wait for installs, try running it again and it should work correctly now
+    - NOTE: Im not sure why this is currently happening, I experienced this issue and performing the above steps worked a charm
 
 ## Deployment notes
 

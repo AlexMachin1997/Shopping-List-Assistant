@@ -1,12 +1,16 @@
-import { createMaterialBottomTabNavigator } from 'react-navigation-material-bottom-tabs';
+import React from "react";
 
+import { createMaterialBottomTabNavigator } from "react-navigation-material-bottom-tabs";
 
 // Custom screens
-import ShoppingListsScreen from '../Screens/ShoppingLists';
-import ItemTrackingScreen from '../Screens/ItemTracking';
+import ShoppingListsScreen from "../Screens/ShoppingLists";
+import ItemTrackingScreen from "../Screens/ItemTracking";
 
 // Icon libaries
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
+import MaterialIcons from "react-native-vector-icons/MaterialIcons";
+import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
+
+// clipboard-text-outline
 
 /* 
 SearchStack:
@@ -20,26 +24,61 @@ Tab config:
 - BarStyle sets the backgroundColour which is currently blue
 
 */
-
-export default TabStack = createMaterialBottomTabNavigator(
+export default (TabStack = createMaterialBottomTabNavigator(
   {
     ShoppingLists: {
       screen: ShoppingListsScreen,
       navigationOptions: {
         tabBarLabel: "Shopping Lists",
-        tabBarIcon: () => <MaterialIcons name="clipboard-text-outline" size={25} color="white"/>
+        tabBarIcon: () => (
+          <MaterialCommunityIcons
+            name="clipboard-text-outline"
+            size={25}
+            color="#CCDBDC"
+          />
+        )
       }
     },
     TrackItem: {
       screen: ItemTrackingScreen,
       navigationOptions: {
         tabBarLabel: "Find items",
-        tabBarIcon: () => <MaterialIcons name="location-on" size={25} color="white"/>
+        tabBarIcon: () => (
+          <MaterialIcons name="location-on" size={25} color="#CCDBDC" />
+        )
       }
     }
   },
   {
-	initialRouteName: "ShoppingLists",
-    barStyle: { backgroundColor: '#0277bd' }
+    navigationOptions: ({ navigation }) => {
+      const { routeName } = navigation.state.routes[navigation.state.index];
+
+      // ShoppingLists tab, when the route equals routeName set the headerTitle equal to the specified title
+      if (routeName == "ShoppingLists") {
+        return {
+          headerTitle: "Shopping Lists"
+        };
+      }
+
+      // TrackItems tab, when the route equals routeName set the headerTitle equal to the specified title
+      if (routeName == "TrackItem") {
+        return {
+          headerTitle: "Find items"
+        };
+      }
+    },
+    initialRouteName: "ShoppingLists",
+    animationEnabled: true,
+    lazy: true,
+    barStyle: {
+      backgroundColor: "#003249",
+      borderTopColor: "#CCDBDC",
+      borderWidth: 2,
+      borderStyle: "solid"
+    },
+    shifting: true,
+    tabBarOptions: {
+      scrollEnabled: true
+    }
   }
-);
+));

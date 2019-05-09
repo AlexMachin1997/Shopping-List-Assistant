@@ -1,13 +1,13 @@
 // React dependencies
-import React, {Component} from 'react';
-import {View, Text} from 'react-native';
+import React, { Component } from "react";
+import { View, Text } from "react-native";
 
 export default class Settings extends Component {
   render() {
-    return(
-    <View>
+    return (
+      <View>
         <Text>Settings</Text>
-    </View>
+      </View>
     );
   }
 }

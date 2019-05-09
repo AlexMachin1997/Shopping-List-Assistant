@@ -1,8 +1,12 @@
 import React, { Component } from "react";
 import { AsyncStorage } from "react-native";
-import Spinner from "../Components/Spinner";
+import Spinner from "../Components/UI/States/Loading";
 
 export default class IndexScreen extends Component {
+  state = {
+    isDark: false
+  };
+
   componentDidMount() {
     this.StatusCheck();
   }
@@ -19,6 +23,6 @@ export default class IndexScreen extends Component {
   };
 
   render() {
-    return <Spinner />;
+    return <Spinner isDark={this.state.isDark} />;
   }
 }
