@@ -3,13 +3,15 @@ import React from "react";
 import { View } from "react-native";
 import proptypes from "proptypes";
 
+import { withTheme } from "styled-components";
+
 // Component assets
 import Icon from "react-native-vector-icons/MaterialIcons";
 
 // Stateless components
 import { TouchableRipple } from "react-native-paper";
 
-const HeaderIcon = ({ marginRight, marginLeft, action, icon }) => {
+const HeaderIcon = ({ marginRight, marginLeft, action, icon, theme }) => {
   return (
     <View
       style={{
@@ -17,7 +19,7 @@ const HeaderIcon = ({ marginRight, marginLeft, action, icon }) => {
         marginLeft: marginLeft
       }}
     >
-      <TouchableRipple onPress={action} rippleColor="#e91e63">
+      <TouchableRipple onPress={action} rippleColor={theme.Tertiary}>
         <Icon name={icon} size={30} color="#CCDBDC" />
       </TouchableRipple>
     </View>
@@ -45,4 +47,4 @@ HeaderIcon.defaultProps = {
   marginRight: 0
 };
 
-export default HeaderIcon;
+export default withTheme(HeaderIcon);

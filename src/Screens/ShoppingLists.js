@@ -9,13 +9,28 @@ import EmptyIcon from "../Assets/Shocked.png";
 import { withTheme } from "styled-components";
 import { NavigationEvents } from "react-navigation";
 
-// Functionless components
+// Stateless components
 import Empty from "../Components/UI/States/Empty";
 import ActionButton from "../Components/UI/Action-Blocks/ActionButton";
 import CreateShoppingListModal from "../Components/UI/Modal";
 import ShoppingListCard from "../Components/UI/Cards/ShoppingLists/ShoppingList";
 import Loading from "../Components/UI/States/Loading";
 import { TextInput } from "react-native-paper";
+
+/*
+Context API Consumer:
+- Wraps the entire component, Consumer then renders the children (This components JSX)
+- When using the <Consumer> component you can access the value which has access to the entire state and the dispatch method
+
+Usage:
+
+<Consumer>
+{value => {
+  <Text colour={value.isDark : "White" : "Black"}> Hello </Text>
+}}
+</Consumer>
+*/
+import { Consumer } from "../Context";
 
 // Utility libraries
 import shortid from "shortid";
@@ -27,14 +42,8 @@ class ShoppingLists extends Component {
     isLoading: true,
     shoppingListName: "",
     shoppingLists: [],
-    shoppingListTheme: "",
-    isDark: false
+    shoppingListTheme: ""
   };
-
-  componentDidMount() {
-    console.log("The shopping list screen has mounted");
-    this.fetchShoppingLists();
-  }
 
   fetchShoppingLists = async () => {
     await this.setState(({ isLoading }) => ({
@@ -57,6 +66,13 @@ class ShoppingLists extends Component {
     }
     console.log(this.state.shoppingLists);
   };
+
+  componentDidMount() {
+    console.log("The shopping list screen has mounted");
+
+    // Fetch the current shopping lists from AsyncStorage
+    this.fetchShoppingLists();
+  }
 
   /* 
 	handleChange:
@@ -134,90 +150,105 @@ class ShoppingLists extends Component {
 
   render() {
     if (this.state.isLoading) {
-      return <Loading isDark={this.state.isDark} />;
+      return (
+        <Consumer>
+          {value => {
+            return <Loading isDark={value.isDark} />;
+          }}
+        </Consumer>
+      );
     }
 
     return (
-      <>
-        {/* On refocus refetch the shopping lists*/}
-        <NavigationEvents onDidFocus={() => this.fetchShoppingLists()} />
+      <Consumer>
+        {value => {
+          return (
+            <>
+              <NavigationEvents onDidFocus={() => this.fetchShoppingLists()} />
 
-        <CreateShoppingListModal
-          isDark={this.state.isDark}
-          visible={this.state.IsCreateShoppingModalVisible}
-          title="Create a shopping list"
-          onDismiss={() =>
-            this.setState({
-              IsCreateShoppingModalVisible: !this.state
-                .IsCreateShoppingModalVisible
-            })
-          }
-          onCancel={() =>
-            this.setState({
-              IsCreateShoppingModalVisible: !this.state
-                .IsCreateShoppingModalVisible,
-              shoppingListName: ""
-            })
-          }
-          onOk={this.createShoppingList}
-          submitDisabled={this.state.shoppingListName < 1 ? true : false}
-        >
-          <TextInput
-            placeholder="Enter a shopping list name"
-            value={this.state.text}
-            onChangeText={value => this.handleChange("shoppingListName", value)}
-            underlineColor="transparent"
-            mode="flat"
-          />
-        </CreateShoppingListModal>
-
-        <ScrollView
-          showsHorizontalScrollIndicator={false}
-          showsVerticalScrollIndicator={false}
-          contentContainerStyle={{
-            flexGrow: 1,
-            backgroundColor: this.state.isDark
-              ? this.props.theme.Primary
-              : this.props.theme.Secondary
-          }}
-        >
-          {this.state.shoppingLists.length < 1 ? (
-            <Empty
-              image={EmptyIcon}
-              label="No shipping lists exist"
-              heading="No shopping lists exist"
-              overview="Why not try adding one ?"
-              isDark={this.state.isDark}
-            />
-          ) : (
-            this.state.shoppingLists.map((data, index) => {
-              return (
-                <ShoppingListCard
-                  key={index}
-                  title={data.name}
-                  background={data.shoppingListTheme}
-                  action={() =>
-                    this.props.navigation.navigate("ShoppingList", {
-                      ShoppingList: data,
-                      title: data.name
-                    })
+              <CreateShoppingListModal
+                isDark={value.isDark}
+                visible={this.state.IsCreateShoppingModalVisible}
+                title="Create a shopping list"
+                onDismiss={() =>
+                  this.setState({
+                    IsCreateShoppingModalVisible: !this.state
+                      .IsCreateShoppingModalVisible
+                  })
+                }
+                onCancel={() =>
+                  this.setState({
+                    IsCreateShoppingModalVisible: !this.state
+                      .IsCreateShoppingModalVisible,
+                    shoppingListName: ""
+                  })
+                }
+                onOk={this.createShoppingList}
+                submitDisabled={this.state.shoppingListName < 1 ? true : false}
+              >
+                <TextInput
+                  placeholder="Enter a shopping list name"
+                  value={this.state.text}
+                  onChangeText={value =>
+                    this.handleChange("shoppingListName", value)
                   }
+                  underlineColor="transparent"
+                  mode="flat"
                 />
-              );
-            })
-          )}
-        </ScrollView>
+              </CreateShoppingListModal>
 
-        <ActionButton
-          colour="white"
-          icon={this.state.IsCreateShoppingModalVisible ? "remove" : "add"}
-          action={() =>
-            this.setState({
-              IsCreateShoppingModalVisible: true
-            })
-          }
-        />
-      </>
+              <ScrollView
+                showsHorizontalScrollIndicator={false}
+                showsVerticalScrollIndicator={false}
+                contentContainerStyle={{
+                  flexGrow: 1,
+                  backgroundColor: value.isDark
+                    ? this.props.theme.Primary
+                    : this.props.theme.Secondary
+                }}
+              >
+                {this.state.shoppingLists.length < 1 ? (
+                  <Empty
+                    image={EmptyIcon}
+                    label="No shipping lists exist"
+                    heading="No shopping lists exist"
+                    overview="Why not try adding one ?"
+                    isDark={value.isDark}
+                  />
+                ) : (
+                  this.state.shoppingLists.map((data, index) => {
+                    return (
+                      <ShoppingListCard
+                        key={index}
+                        title={data.name}
+                        background={data.shoppingListTheme}
+                        action={() =>
+                          this.props.navigation.navigate("ShoppingList", {
+                            ShoppingList: data,
+                            title: data.name
+                          })
+                        }
+                      />
+                    );
+                  })
+                )}
+              </ScrollView>
+
+              <ActionButton
+                colour="white"
+                icon={
+                  this.state.IsCreateShoppingModalVisible ? "remove" : "add"
+                }
+                action={() =>
+                  this.setState({
+                    IsCreateShoppingModalVisible: true
+                  })
+                }
+              />
+            </>
+          );
+        }}
+      </Consumer>
     );
   }
 }

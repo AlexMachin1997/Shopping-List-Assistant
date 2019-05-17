@@ -1,12 +1,26 @@
+// React dependencies
 import React, { Component } from "react";
 import { AsyncStorage } from "react-native";
-import Spinner from "../Components/UI/States/Loading";
+
+// Stateless components
+import Loading from "../Components/UI/States/Loading";
+
+/*
+Context API Consumer:
+- Wraps the entire component, Consumer then renders the children (This components JSX)
+- When using the <Consumer> component you can access the value which has access to the entire state and the dispatch method
+
+Usage:
+
+<Consumer>
+{value => {
+  <Text colour={value.isDark : "White" : "Black"}> Hello </Text>
+}}
+</Consumer>
+*/
+import { Consumer } from "../Context";
 
 export default class IndexScreen extends Component {
-  state = {
-    isDark: false
-  };
-
   componentDidMount() {
     this.StatusCheck();
   }
@@ -23,6 +37,12 @@ export default class IndexScreen extends Component {
   };
 
   render() {
-    return <Spinner isDark={this.state.isDark} />;
+    return (
+      <Consumer>
+        {value => {
+          return <Loading isDark={value.isDark} />;
+        }}
+      </Consumer>
+    );
   }
 }

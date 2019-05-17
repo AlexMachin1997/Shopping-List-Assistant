@@ -16,7 +16,7 @@ const reducer = (state, action) => {
     case "TOGGLE_THEME":
       return {
         ...state,
-        isDark: action.payload
+        isDark: !action.payload
       };
     default:
       return state;

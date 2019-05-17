@@ -15,6 +15,21 @@ import Text from "../Components/Styled-Components/Text";
 // Screen assets
 import EmptyIcon from "../Assets/Shopping-Basket.png";
 
+/*
+Context API Consumer:
+- Wraps the entire component, Consumer then renders the children (This components JSX)
+- When using the <Consumer> component you can access the value which has access to the entire state and the dispatch method
+
+Usage:
+
+<Consumer>
+{value => {
+  <Text colour={value.isDark : "White" : "Black"}> Hello </Text>
+}}
+</Consumer>
+*/
+import { Consumer } from "../Context";
+
 // Utility libraries
 import shortid from "shortid";
 import moment from "moment";
@@ -23,7 +38,6 @@ class ShoppingList extends Component {
   state = {
     isFloatingActionButtonsVisible: false,
     isAddItemsModalVisible: false,
-    isDark: false,
     isRenameShoppingListModalVisible: false,
     isLoading: true,
     isDeleteShoppingListModalVisible: false,
@@ -238,161 +252,176 @@ class ShoppingList extends Component {
 
   render() {
     if (this.state.isLoading) {
-      return <Loading isDark={this.state.isDark} />;
+      return (
+        <Consumer>
+          {value => {
+            return <Loading isDark={value.isDark} />;
+          }}
+        </Consumer>
+      );
     }
 
     return (
-      <>
-        <ActionButtons
-          open={this.state.isFloatingActionButtonsVisible}
-          icon={this.state.isFloatingActionButtonsVisible}
-          isRenameModalVisible={() =>
-            this.setState({
-              isRenameShoppingListModalVisible: true,
-              newShoppingListName: this.state.currentShoppingList.name
-            })
-          }
-          deleteListAction={() =>
-            this.setState({
-              isDeleteShoppingListModalVisible: !this.state
-                .isDeleteShoppingListModalVisible
-            })
-          }
-          addItemAction={() =>
-            this.setState({
-              isAddItemsModalVisible: true
-            })
-          }
-          onStateChange={() =>
-            this.setState({
-              isFloatingActionButtonsVisible: !this.state
-                .isFloatingActionButtonsVisible
-            })
-          }
-        />
-        <Modal
-          visible={this.state.isAddItemsModalVisible}
-          title="Create an item"
-          onDismiss={() =>
-            this.setState({
-              isAddItemsModalVisible: !this.state.isAddItemsModalVisible
-            })
-          }
-          onCancel={() =>
-            this.setState({
-              isAddItemsModalVisible: !this.state.isAddItemsModalVisible,
-              itemName: ""
-            })
-          }
-          onOk={() => this.addItem()}
-          submitDisabled={this.state.itemName < 1 ? true : false}
-          isDark={this.state.isDark}
-        >
-          <TextInput
-            placeholder="Enter an item name"
-            value={this.state.itemName}
-            onChangeText={value => this.handleChange("itemName", value)}
-            underlineColor="transparent"
-            mode="flat"
-          />
-        </Modal>
-
-        <Modal
-          visible={this.state.isRenameShoppingListModalVisible}
-          title="Renaming Shopping list"
-          onDismiss={() =>
-            this.setState({
-              isRenameShoppingListModalVisible: !this.state
-                .isRenameShoppingListModalVisible,
-              newShoppingListName: ""
-            })
-          }
-          onCancel={() =>
-            this.setState({
-              isRenameShoppingListModalVisible: !this.state
-                .isRenameShoppingListModalVisible,
-              newShoppingListName: ""
-            })
-          }
-          onOk={() => this.updateShoppingListName()}
-          submitDisabled={this.state.newShoppingListName < 1 ? true : false}
-          isDark={this.state.isDark}
-        >
-          <TextInput
-            placeholder="Enter an item name"
-            value={this.state.newShoppingListName}
-            onChangeText={value =>
-              this.handleChange("newShoppingListName", value)
-            }
-            underlineColor="transparent"
-            mode="flat"
-          />
-        </Modal>
-
-        <Modal
-          visible={this.state.isDeleteShoppingListModalVisible}
-          title="Delete list confirmation"
-          onDismiss={() =>
-            this.setState({
-              isDeleteShoppingListModalVisible: !this.state
-                .isDeleteShoppingListModalVisible
-            })
-          }
-          onCancel={() =>
-            this.setState({
-              isDeleteShoppingListModalVisible: !this.state
-                .isDeleteShoppingListModalVisible
-            })
-          }
-          onOk={() =>
-            this.deleteShoppingList(this.state.currentShoppingList.id)
-          }
-          submitDisabled={false}
-          isDark={this.state.isDark}
-        >
-          <Text size="19px">
-            Looks like you want to delete the shopping list. Are you sure ?
-          </Text>
-        </Modal>
-
-        <ScrollView
-          showsHorizontalScrollIndicator={false}
-          showsVerticalScrollIndicator={false}
-          contentContainerStyle={{
-            flexGrow: 1,
-            backgroundColor: this.state.isDark
-              ? this.props.theme.Primary
-              : this.props.theme.Secondary,
-            paddingBottom: 70
-          }}
-        >
-          {this.state.currentShoppingList.items.length < 1 ? (
-            <Empty
-              image={EmptyIcon}
-              label="No shopping list items exist"
-              heading="No shopping list items exist"
-              overview="Why not try adding one ?"
-              isDark={this.state.isDark}
-            />
-          ) : (
-            this.state.currentShoppingList.items.map((data, index) => {
-              return (
-                <SingleShoppingList
-                  key={index}
-                  toggle={() => this.toggleComplete(data.id)}
-                  isComplete={data.completed}
-                  name={data.name}
-                  deleteAction={() => this.deleteItem(data.id)}
-                  isDark={this.state.isDark}
-                  shoppingListTheme={
-                    this.state.currentShoppingList.shoppingListTheme
-                  }
+      <Consumer>
+        {value => {
+          return (
+            <>
+              <ActionButtons
+                open={this.state.isFloatingActionButtonsVisible}
+                icon={this.state.isFloatingActionButtonsVisible}
+                isRenameModalVisible={() =>
+                  this.setState({
+                    isRenameShoppingListModalVisible: true,
+                    newShoppingListName: this.state.currentShoppingList.name
+                  })
+                }
+                deleteListAction={() =>
+                  this.setState({
+                    isDeleteShoppingListModalVisible: !this.state
+                      .isDeleteShoppingListModalVisible
+                  })
+                }
+                addItemAction={() =>
+                  this.setState({
+                    isAddItemsModalVisible: true
+                  })
+                }
+                onStateChange={() =>
+                  this.setState({
+                    isFloatingActionButtonsVisible: !this.state
+                      .isFloatingActionButtonsVisible
+                  })
+                }
+              />
+              <Modal
+                visible={this.state.isAddItemsModalVisible}
+                title="Create an item"
+                onDismiss={() =>
+                  this.setState({
+                    isAddItemsModalVisible: !this.state.isAddItemsModalVisible
+                  })
+                }
+                onCancel={() =>
+                  this.setState({
+                    isAddItemsModalVisible: !this.state.isAddItemsModalVisible,
+                    itemName: ""
+                  })
+                }
+                onOk={() => this.addItem()}
+                submitDisabled={this.state.itemName < 1 ? true : false}
+                isDark={value.isDark}
+              >
+                <TextInput
+                  placeholder="Enter an item name"
+                  value={this.state.itemName}
+                  onChangeText={value => this.handleChange("itemName", value)}
+                  underlineColor="transparent"
+                  mode="flat"
                 />
-              );
-            })
-          )}
-        </ScrollView>
-      </>
+              </Modal>
+
+              <Modal
+                visible={this.state.isRenameShoppingListModalVisible}
+                title="Renaming Shopping list"
+                onDismiss={() =>
+                  this.setState({
+                    isRenameShoppingListModalVisible: !this.state
+                      .isRenameShoppingListModalVisible,
+                    newShoppingListName: ""
+                  })
+                }
+                onCancel={() =>
+                  this.setState({
+                    isRenameShoppingListModalVisible: !this.state
+                      .isRenameShoppingListModalVisible,
+                    newShoppingListName: ""
+                  })
+                }
+                onOk={() => this.updateShoppingListName()}
+                submitDisabled={
+                  this.state.newShoppingListName < 1 ? true : false
+                }
+                isDark={value.isDark}
+              >
+                <TextInput
+                  placeholder="Enter an item name"
+                  value={this.state.newShoppingListName}
+                  onChangeText={value =>
+                    this.handleChange("newShoppingListName", value)
+                  }
+                  underlineColor="transparent"
+                  mode="flat"
+                />
+              </Modal>
+
+              <Modal
+                visible={this.state.isDeleteShoppingListModalVisible}
+                title="Delete list confirmation"
+                onDismiss={() =>
+                  this.setState({
+                    isDeleteShoppingListModalVisible: !this.state
+                      .isDeleteShoppingListModalVisible
+                  })
+                }
+                onCancel={() =>
+                  this.setState({
+                    isDeleteShoppingListModalVisible: !this.state
+                      .isDeleteShoppingListModalVisible
+                  })
+                }
+                onOk={() =>
+                  this.deleteShoppingList(this.state.currentShoppingList.id)
+                }
+                submitDisabled={false}
+                isDark={value.isDark}
+              >
+                <Text size="19px">
+                  Looks like you want to delete the shopping list. Are you sure
+                  ?
+                </Text>
+              </Modal>
+
+              <ScrollView
+                showsHorizontalScrollIndicator={false}
+                showsVerticalScrollIndicator={false}
+                contentContainerStyle={{
+                  flexGrow: 1,
+                  backgroundColor: value.isDark
+                    ? this.props.theme.Primary
+                    : this.props.theme.Secondary,
+                  paddingBottom: 70
+                }}
+              >
+                {this.state.currentShoppingList.items.length < 1 ? (
+                  <Empty
+                    image={EmptyIcon}
+                    label="No shopping list items exist"
+                    heading="No shopping list items exist"
+                    overview="Why not try adding one ?"
+                    isDark={value.isDark}
+                  />
+                ) : (
+                  this.state.currentShoppingList.items.map((data, index) => {
+                    return (
+                      <SingleShoppingList
+                        key={index}
+                        toggle={() => this.toggleComplete(data.id)}
+                        isComplete={data.completed}
+                        name={data.name}
+                        deleteAction={() => this.deleteItem(data.id)}
+                        isDark={value.isDark}
+                        shoppingListTheme={
+                          this.state.currentShoppingList.shoppingListTheme
+                        }
+                      />
+                    );
+                  })
+                )}
+              </ScrollView>
+            </>
+          );
+        }}
+      </Consumer>
     );
   }
 }
