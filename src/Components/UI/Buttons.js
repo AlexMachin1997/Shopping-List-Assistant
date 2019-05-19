@@ -1,10 +1,9 @@
 //React dependencies
 import React from "react";
+import propTypes from "proptypes";
 
 // User-Interface Libaries
 import { Button } from "react-native-paper";
-
-import propTypes from "proptypes";
 
 const Buttons = ({
   mode,
@@ -37,7 +36,7 @@ Buttons.propTypes = {
   mode: propTypes.string.isRequired,
   isCompact: propTypes.bool.isRequired,
   colour: propTypes.string.isRequired,
-  style: propTypes.object.isRequired,
+  style: propTypes.object,
   onClick: propTypes.func.isRequired,
   label: propTypes.string.isRequired,
   isDisabled: propTypes.bool.isRequired,

@@ -11,6 +11,7 @@ import Empty from "../Components/UI/States/Empty";
 import ActionButtons from "../Components/UI/Action-Blocks/ActionButtons";
 import SingleShoppingList from "../Components/UI/Cards/ShoppingList/ShoppingList";
 import Text from "../Components/Styled-Components/Text";
+import HeaderIcon from "../Components/Navigation/HeaderIcon";
 
 // Screen assets
 import EmptyIcon from "../Assets/Shopping-Basket.png";
@@ -246,7 +247,15 @@ class ShoppingList extends Component {
   */
   static navigationOptions = ({ navigation }) => {
     return {
-      title: navigation.state.params.title
+      title: navigation.state.params.title,
+      headerRight: null,
+      headerLeft: (
+        <HeaderIcon
+          icon="arrow-back"
+          action={() => navigation.goBack()}
+          marginLeft={10}
+        />
+      )
     };
   };
 

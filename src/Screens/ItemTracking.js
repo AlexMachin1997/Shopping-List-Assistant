@@ -8,7 +8,7 @@ import {
   Alert
 } from "react-native";
 
-// Higr-Order-Components (HOC)
+// Higher-Order-Components (HOC)
 import { NavigationEvents } from "react-navigation";
 
 // Stateless components
@@ -61,6 +61,7 @@ export default class ItemTracking extends Component {
     let copyOfSuperMarkets = [...Locations];
 
     // Filtered data based on the lat and lng from watchPosition()
+    // Prevents 5k markers being spawned on the map, which would actually crash it. The app stops responding :(
     let filteredCopyOfSuperMarkets = copyOfSuperMarkets.filter(
       location =>
         this.state.latitude <= location.Lat &&
@@ -105,8 +106,21 @@ export default class ItemTracking extends Component {
     });
   };
 
-  watchLocation = () => {
+  watchLocation = async () => {
     console.log("The mobile application is now watching your location");
+
+    try {
+      const granted = await PermissionsAndroid.request(
+        PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION
+      );
+      if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+        console.log("Location permission acquired");
+      } else {
+        console.log("Location permission denied");
+      }
+    } catch (err) {
+      console.warn(err);
+    }
 
     // Starts to watch your location
     // Even though enableHighAccuracy is enabled it still takes a considerable amount of time to load. All you will see is a blue screen until it's found
@@ -122,7 +136,9 @@ export default class ItemTracking extends Component {
         this.checkSupermarketLocations();
       },
       {
+        // Provies pinpoint accuracy
         enableHighAccuracy: true,
+
         maximumAge: 300000,
         useSignificantChanges: true
       }
@@ -175,7 +191,6 @@ export default class ItemTracking extends Component {
                 zoomTapEnabled={true}
                 rotateEnabled={true}
                 pitchEnabled={true}
-                userLocationAnnotationTitle="My current location"
                 followsUserLocation={true}
                 showsCompass={true}
                 customMapStyle={value.isDark ? NightMode : []}

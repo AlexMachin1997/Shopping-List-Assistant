@@ -1,5 +1,6 @@
 // React dependencies
 import React, { Component } from "react";
+import { AsyncStorage } from "react-native";
 
 // Creating the context for the app
 const Context = React.createContext();
@@ -13,10 +14,10 @@ reducer:
 */
 const reducer = (state, action) => {
   switch (action.type) {
-    case "TOGGLE_THEME":
+    case "SET_THEME_MODE":
       return {
         ...state,
-        isDark: !action.payload
+        isDark: action.payload
       };
     default:
       return state;
@@ -28,6 +29,21 @@ export class Provider extends Component {
     isDark: false,
     dispatch: action => this.setState(state => reducer(state, action))
   };
+
+  async componentDidMount() {
+    let data = await AsyncStorage.getItem("isDark");
+    console.log(data);
+
+    if (data) {
+      await this.setState({
+        isDark: JSON.parse(data)
+      });
+    } else {
+      await this.setState({
+        isDark: false
+      });
+    }
+  }
 
   render() {
     return (

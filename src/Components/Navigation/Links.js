@@ -13,7 +13,7 @@ import { withTheme } from "styled-components";
 
 const Link = ({ action, isDark, theme, icon, text }) => {
   return (
-    <TouchableOpacity onPress={action}>
+    <>
       <Section
         row
         marginRight={10}
@@ -30,14 +30,18 @@ const Link = ({ action, isDark, theme, icon, text }) => {
             color={isDark ? theme.Secondary : theme.Primary}
           />
         </Section>
-        <Section
-          marginRight={10}
-          backgroundColour={isDark ? theme.Primary : theme.Secondary}
-        >
-          <Text colour={isDark ? theme.Secondary : theme.Primary}>{text}</Text>
-        </Section>
+        <TouchableOpacity onPress={action}>
+          <Section
+            marginRight={10}
+            backgroundColour={isDark ? theme.Primary : theme.Secondary}
+          >
+            <Text colour={isDark ? theme.Secondary : theme.Primary}>
+              {text}
+            </Text>
+          </Section>
+        </TouchableOpacity>
       </Section>
-    </TouchableOpacity>
+    </>
   );
 };
 

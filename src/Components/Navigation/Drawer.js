@@ -12,7 +12,20 @@ import { withTheme } from "styled-components";
 import Link from "./Links";
 import Image from "../Styled-Components/Images";
 import Section from "../Styled-Components/Section";
-import { Consumer } from "../../Context";
+
+/*
+Context API Consumer:
+- Wraps the entire component, Consumer then renders the children (This components JSX)
+- When using the <Consumer> component you can access the value which has access to the entire state and the dispatch method
+
+Usage:
+
+<Consumer>
+{value => {
+  <Text colour={value.isDark : "White" : "Black"}> Hello </Text>
+}}
+</Consumer>
+*/ import { Consumer } from "../../Context";
 
 class Drawer extends Component {
   state = {
@@ -39,7 +52,7 @@ class Drawer extends Component {
                 paddingBottom={50}
                 justifyContent="center"
                 alignItems="center"
-                isDark={value.isDark ? theme.Primary : theme.Secondary}
+                isDark={value.isDark}
               >
                 <Image source={ApplicationIcon} height={120} width={120} />
               </Section>
@@ -72,22 +85,6 @@ class Drawer extends Component {
                   action={() => navigate("Settings")}
                   icon="settings"
                   text="Settings"
-                  isDark={value.isDark}
-                />
-              </Section>
-
-              <Section
-                paddingBottom={40}
-                justifyContent="flex-start"
-                alignItems="flex-start"
-                flexWrap="wrap"
-                flexGrow={0}
-                isDark={value.isDark}
-              >
-                <Link
-                  action={() => navigate("WelcomeStack")}
-                  icon="exit-to-app"
-                  text="Exit"
                   isDark={value.isDark}
                 />
               </Section>

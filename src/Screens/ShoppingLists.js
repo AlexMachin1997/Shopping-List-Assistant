@@ -12,7 +12,7 @@ import { NavigationEvents } from "react-navigation";
 // Stateless components
 import Empty from "../Components/UI/States/Empty";
 import ActionButton from "../Components/UI/Action-Blocks/ActionButton";
-import CreateShoppingListModal from "../Components/UI/Modal";
+import Modal from "../Components/UI/Modal";
 import ShoppingListCard from "../Components/UI/Cards/ShoppingLists/ShoppingList";
 import Loading from "../Components/UI/States/Loading";
 import { TextInput } from "react-native-paper";
@@ -64,12 +64,10 @@ class ShoppingLists extends Component {
         isLoading: false
       });
     }
-    console.log(this.state.shoppingLists);
   };
 
   componentDidMount() {
     console.log("The shopping list screen has mounted");
-
     // Fetch the current shopping lists from AsyncStorage
     this.fetchShoppingLists();
   }
@@ -162,11 +160,13 @@ class ShoppingLists extends Component {
     return (
       <Consumer>
         {value => {
+          console.log(value);
+
           return (
             <>
               <NavigationEvents onDidFocus={() => this.fetchShoppingLists()} />
 
-              <CreateShoppingListModal
+              <Modal
                 isDark={value.isDark}
                 visible={this.state.IsCreateShoppingModalVisible}
                 title="Create a shopping list"
@@ -195,7 +195,7 @@ class ShoppingLists extends Component {
                   underlineColor="transparent"
                   mode="flat"
                 />
-              </CreateShoppingListModal>
+              </Modal>
 
               <ScrollView
                 showsHorizontalScrollIndicator={false}
