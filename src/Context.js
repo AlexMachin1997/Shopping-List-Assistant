@@ -17,7 +17,7 @@ const reducer = (state, action) => {
     case "SET_THEME_MODE":
       return {
         ...state,
-        isDark: action.payload
+        isDark: !action.payload
       };
     default:
       return state;
@@ -31,9 +31,10 @@ export class Provider extends Component {
   };
 
   async componentDidMount() {
+    // Perform a key-value lookup
     let data = await AsyncStorage.getItem("isDark");
-    console.log(data);
 
+    // Check for a truthy or falsey value in AsyncStorage
     if (data) {
       await this.setState({
         isDark: JSON.parse(data)

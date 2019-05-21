@@ -11,6 +11,7 @@ import Text from "../../Styled-Components/Text";
 // Higher-order-components
 import { withTheme } from "styled-components";
 
+// {isDark, image, label, theme, heading, overview} = props
 const Empty = ({ isDark, image, label, theme, heading, overview }) => {
   return (
     <Section

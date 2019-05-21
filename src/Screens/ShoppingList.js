@@ -24,9 +24,9 @@ Context API Consumer:
 Usage:
 
 <Consumer>
-{value => {
-  <Text colour={value.isDark : "White" : "Black"}> Hello </Text>
-}}
+  {value => {
+    <Text colour={value.isDark : "White" : "Black"}> Hello </Text>
+  }}
 </Consumer>
 */
 import { Consumer } from "../Context";
@@ -70,6 +70,7 @@ class ShoppingList extends Component {
     }
   }
 
+  // handleChange('isLoading', true)
   handleChange = async (id, value) => {
     await this.setState({
       [id]: value
@@ -89,8 +90,6 @@ class ShoppingList extends Component {
         await this.setState({
           shoppingLists: CurrentshoppingLists
         });
-
-        console.log(this.state.shoppingLists);
 
         // Update shopping lists array
         await AsyncStorage.setItem(
@@ -143,13 +142,11 @@ class ShoppingList extends Component {
     - Finds the index based on the id
     - Requires 1 argument, an array item e.g. {name: "Beans", completed: false} 
     - Returns an index, but if there is no index it will return -1
-
     */
+
     let indexOfItem = await copiedCurrentShoppingList.items.findIndex(
       item => item.id === id
     );
-    let item = copiedCurrentShoppingList.items[indexOfItem];
-    item.completed = !item.completed;
 
     await copiedCurrentShoppingList.items.splice(indexOfItem, 1);
 
@@ -188,8 +185,6 @@ class ShoppingList extends Component {
   toggleComplete = async id => {
     // Copy the current shopping list data (Don't directly modify the data)
     let copiedCurrentShoppingList = { ...this.state.currentShoppingList };
-
-    // Find item by index e.g. item.id === id
 
     /* 
     findIndex:
@@ -384,7 +379,14 @@ class ShoppingList extends Component {
                 submitDisabled={false}
                 isDark={value.isDark}
               >
-                <Text size="19px">
+                <Text
+                  size="19px"
+                  colour={
+                    value.isDark
+                      ? this.props.theme.Secondary
+                      : this.props.theme.Primary
+                  }
+                >
                   Looks like you want to delete the shopping list. Are you sure
                   ?
                 </Text>

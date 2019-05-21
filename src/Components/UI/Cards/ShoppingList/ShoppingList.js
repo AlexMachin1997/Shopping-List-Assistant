@@ -1,6 +1,6 @@
 // React dependencies
 import React from "react";
-import { Text, View } from "react-native";
+import { View } from "react-native";
 
 // Stateless components
 import { IconButton, ToggleButton, TouchableRipple } from "react-native-paper";
@@ -8,6 +8,7 @@ import Section from "../../../Styled-Components/Section";
 import { H3 } from "../../../Styled-Components/Headings";
 import { withTheme } from "styled-components";
 
+// {toggle, shoppingListTheme, theme, isComplete, name, isDark, deleteAction} = props
 const ShoppingList = ({
   toggle,
   shoppingListTheme,

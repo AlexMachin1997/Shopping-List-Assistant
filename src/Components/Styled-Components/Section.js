@@ -15,7 +15,10 @@ Usage:
 
 */
 
+// Styled-Components dependencies
 import styled from "styled-components/native";
+
+// React dependencies
 import proptypes from "proptypes";
 
 const Section = styled.View`
@@ -51,6 +54,11 @@ const Section = styled.View`
   margin-left: ${props => props.marginLeft};
 `;
 
+/* 
+defaultProps:
+- Assigns default props to the componet, they only apply when a prop is not provided.
+- https://reactjs.org/docs/react-without-es6.html#declaring-default-props
+*/
 Section.defaultProps = {
   justifyContent: "flex-start",
   alignItems: "flex-start",
@@ -72,6 +80,11 @@ Section.defaultProps = {
   marginLeft: 0
 };
 
+/*
+Proptype validation
+- Validates the data runtime, any invalid props a warning will be shown
+- https://reactjs.org/docs/typechecking-with-proptypes.html
+*/
 Section.proptypes = {
   justifyContent: proptypes.string.isRequired,
   alignItems: proptypes.string.isRequired,

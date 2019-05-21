@@ -10,13 +10,15 @@ Usage:
 - To use the component iimport it to the screen which it needs to be used on
 
 - Once you have imported the component use it like this example: 
-    <H1 colour="black" align="right">Hello Im a H1</H1>
+  <H1 colour="black" align="right">Hello Im a H1</H1>
 
 - If you need to change the heading sizes change them here and it will be reflected throughout the rest of the application
 */
 
+// Styled-Components dependencies
 import styled from "styled-components/native";
 
+// React dependencies
 import proptypes from "proptypes";
 
 // Web standard sizes for h1

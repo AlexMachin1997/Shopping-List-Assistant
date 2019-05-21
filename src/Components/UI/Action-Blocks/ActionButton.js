@@ -9,6 +9,7 @@ import { FAB } from "react-native-paper";
 // Higher-order-components
 import { withTheme } from "styled-components";
 
+// {theme, icon, action, colour} = props
 const ActionButton = ({ theme, icon, action, colour }) => {
   return (
     <View

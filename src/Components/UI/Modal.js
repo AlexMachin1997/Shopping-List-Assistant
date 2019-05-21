@@ -9,6 +9,7 @@ import Button from "./Buttons";
 // Higher-order-components
 import { withTheme } from "styled-components";
 
+// {visible, onDismiss, isDark, theme, submitDisabled, onOk, onCancel, children, title} = props
 const Modal = ({
   visible,
   onDismiss,

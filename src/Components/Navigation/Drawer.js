@@ -21,11 +21,12 @@ Context API Consumer:
 Usage:
 
 <Consumer>
-{value => {
-  <Text colour={value.isDark : "White" : "Black"}> Hello </Text>
-}}
+  {value => {
+    <Text colour={value.isDark : "White" : "Black"}> Hello </Text>
+  }}
 </Consumer>
-*/ import { Consumer } from "../../Context";
+*/
+import { Consumer } from "../../Context";
 
 class Drawer extends Component {
   state = {

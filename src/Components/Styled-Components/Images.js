@@ -12,7 +12,11 @@ Usage:
 
 - If you need to change the image properties you will need to change them here
 */
+
+// Styled-Components dependencies
 import styled from "styled-components/native";
+
+// React dependencies
 import proptypes from "proptypes";
 
 const Image = styled.Image`

@@ -19,6 +19,7 @@ import proptypes from "proptypes";
 
 import Section from "../../Styled-Components/Section";
 
+// {isDark} = props
 const Loading = ({ isDark }) => {
   return (
     <Section

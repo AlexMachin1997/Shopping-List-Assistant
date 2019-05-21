@@ -7,6 +7,7 @@ import Section from "../../../Styled-Components/Section";
 import Text from "../../../Styled-Components/Text";
 import { TouchableRipple } from "react-native-paper";
 
+// {action, background, title} = props
 const ShoppingList = ({ action, background, title }) => {
   return (
     <TouchableRipple onPress={action} rippleColor={background}>

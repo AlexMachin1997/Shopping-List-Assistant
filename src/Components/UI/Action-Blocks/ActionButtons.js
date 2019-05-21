@@ -9,6 +9,7 @@ import { FAB, Portal } from "react-native-paper";
 // Higher-order-components
 import { withTheme } from "styled-components";
 
+// {open, theme, isRenameModalVisible, deleteListAction, addItemAction, onStateChange, icon} = props;
 const ActionButtons = ({
   open,
   theme,

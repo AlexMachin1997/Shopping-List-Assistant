@@ -25,9 +25,9 @@ Context API Consumer:
 Usage:
 
 <Consumer>
-{value => {
-  <Text colour={value.isDark : "White" : "Black"}> Hello </Text>
-}}
+  {value => {
+    <Text colour={value.isDark : "White" : "Black"}> Hello </Text>
+  }}
 </Consumer>
 */
 import { Consumer } from "../Context";
@@ -53,6 +53,7 @@ class ShoppingLists extends Component {
     // Perform an AsyncStroage request based on the key provided
     const value = await AsyncStorage.getItem("ShoppingLists");
 
+    // Check for a valid response ie the shopping lists must exist
     if (value) {
       await this.setState({
         shoppingLists: JSON.parse(value),
@@ -223,6 +224,7 @@ class ShoppingLists extends Component {
                         title={data.name}
                         background={data.shoppingListTheme}
                         action={() =>
+                          // Passing data to the ShoppingList component
                           this.props.navigation.navigate("ShoppingList", {
                             ShoppingList: data,
                             title: data.name

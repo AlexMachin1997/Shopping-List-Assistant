@@ -13,6 +13,7 @@ import { NavigationEvents } from "react-navigation";
 
 // Stateless components
 import Loading from "../Components/UI/States/Loading";
+import MapView, { Marker } from "react-native-maps";
 
 /*
 Context API Consumer:
@@ -22,9 +23,9 @@ Context API Consumer:
 Usage:
 
 <Consumer>
-{value => {
-  <Text colour={value.isDark : "White" : "Black"}> Hello </Text>
-}}
+  {value => {
+    <Text colour={value.isDark : "White" : "Black"}> Hello </Text>
+  }}
 </Consumer>
 */
 import { Consumer } from "../Context";
@@ -32,7 +33,6 @@ import { Consumer } from "../Context";
 // location assets
 import Locations from "../../supermarkets.json";
 import NightMode from "../Assets/GoogleMapsNight.json";
-import MapView, { Marker } from "react-native-maps";
 
 // Styled-Components can't provide this so a custom react-native view needed to be provided.
 const styles = StyleSheet.create({
@@ -107,8 +107,6 @@ export default class ItemTracking extends Component {
   };
 
   watchLocation = async () => {
-    console.log("The mobile application is now watching your location");
-
     try {
       const granted = await PermissionsAndroid.request(
         PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION
@@ -139,7 +137,11 @@ export default class ItemTracking extends Component {
         // Provies pinpoint accuracy
         enableHighAccuracy: true,
 
+        // For caching data
         maximumAge: 300000,
+
+        // Uses the battery-efficient native significant changes APIs to return locations.
+        // Locations will only be returned when the device detects a significant distance has been breached.
         useSignificantChanges: true
       }
     );

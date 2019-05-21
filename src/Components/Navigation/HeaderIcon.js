@@ -3,14 +3,14 @@ import React from "react";
 import { View } from "react-native";
 import proptypes from "proptypes";
 
+// Stateless components
 import { withTheme } from "styled-components";
+import { TouchableRipple } from "react-native-paper";
 
 // Component assets
 import Icon from "react-native-vector-icons/MaterialIcons";
 
-// Stateless components
-import { TouchableRipple } from "react-native-paper";
-
+// {marginLeft, marginRight, action, icon, theme} = props
 const HeaderIcon = ({ marginRight, marginLeft, action, icon, theme }) => {
   return (
     <View

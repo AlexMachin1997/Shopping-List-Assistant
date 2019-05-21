@@ -2,7 +2,6 @@
   "name": "ShoppingListApp",
   "scripts": {
     "android": "react-native run-android",
-    "ios": "react-native run-ios",
     "start": "react-native start"
   },
   "dependencies": {
@@ -14,7 +13,6 @@
     "react-native-maps": "^0.24.2",
     "react-native-onboarding-swiper": "^1.1.0",
     "react-native-paper": "^2.15.2",
-    "react-native-unimodules": "0.2.0",
     "react-native-vector-icons": "^6.4.2",
     "react-navigation": "^3.5.1",
     "react-navigation-material-bottom-tabs": "^1.0.0",

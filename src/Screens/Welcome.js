@@ -21,6 +21,7 @@ class Welcome extends Component {
         skipToPage={3}
         onDone={this.generateToken}
         transitionAnimationDuration={100}
+        subTitleStyles={{ fontSize: 20 }}
         pages={[
           {
             backgroundColor: this.props.theme.Secondary,
@@ -70,7 +71,8 @@ class Welcome extends Component {
               />
             ),
             title: "Are you ready ?",
-            subtitle: ""
+            subtitle:
+              "You have completed the tutorial, you can now start using the shopping list assistant"
           }
         ]}
       />

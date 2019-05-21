@@ -13,25 +13,25 @@ Context API Consumer:
 Usage:
 
 <Consumer>
-{value => {
-  <Text colour={value.isDark : "White" : "Black"}> Hello </Text>
-}}
+  {value => {
+    <Text colour={value.isDark : "White" : "Black"}> Hello </Text>
+  }}
 </Consumer>
 */
 import { Consumer } from "../Context";
 
 export default class IndexScreen extends Component {
   componentDidMount() {
-    this.StatusCheck();
+    this.statusCheck();
   }
 
   /* 
   StatusCheck:
   - Looks for a key named hasVisited
-  - If the key exists go mainStack else WelcomeStack (Home screen and maybe a tutorial)
+  - If the key exists go mainStack else WelcomeStack 
   - Whilst the action is being performed show the spinner component
   */
-  StatusCheck = async () => {
+  statusCheck = async () => {
     const token = await AsyncStorage.getItem("hasVisited"); // Find the key named userToken
     this.props.navigation.navigate(token ? "MainStack" : "WelcomeStack"); // Terniary operator to decide the stack the user goes to
   };

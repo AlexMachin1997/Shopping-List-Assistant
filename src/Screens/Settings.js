@@ -21,14 +21,19 @@ Context API Consumer:
 Usage:
 
 <Consumer>
-{value => {
-  <Text colour={value.isDark : "White" : "Black"}> Hello </Text>
-}}
+  {value => {
+    <Text colour={value.isDark : "White" : "Black"}> Hello </Text>
+  }}
 </Consumer>
 */
 import { Consumer } from "../Context";
 
 class Settings extends Component {
+  state = {
+    isDeleteShoppingListsModalVisible: false
+  };
+
+  // Overrides the shared header styles
   static navigationOptions = ({ navigation }) => {
     return {
       title: "Settings",
@@ -41,11 +46,6 @@ class Settings extends Component {
         />
       )
     };
-  };
-
-  state = {
-    isDeleteShoppingListsModalVisible: false,
-    isResetModalVisible: false
   };
 
   render() {
@@ -66,7 +66,7 @@ class Settings extends Component {
               <Modal
                 isDark={value.isDark}
                 visible={this.state.isDeleteShoppingListsModalVisible}
-                title="Create a shopping list"
+                title="Delete shopping lists"
                 onDismiss={() =>
                   this.setState({
                     isDeleteShoppingListsModalVisible: !this.state
@@ -92,6 +92,7 @@ class Settings extends Component {
                     })
                   );
 
+                  //
                   await AsyncStorage.removeItem("ShoppingLists");
 
                   // Sends an alert message (Used instead of push notifications)
@@ -120,69 +121,6 @@ class Settings extends Component {
                   size="20px"
                 >
                   Are you sure you want to delete all of your shopping lists ?
-                </Text>
-              </Modal>
-
-              <Modal
-                isDark={value.isDark}
-                visible={this.state.isResetModalVisible}
-                title="Create a shopping list"
-                onDismiss={() =>
-                  this.setState({
-                    isResetModalVisible: !this.state.isResetModalVisible
-                  })
-                }
-                onCancel={() =>
-                  this.setState({
-                    isResetModalVisible: !this.state.isResetModalVisible
-                  })
-                }
-                onOk={async () => {
-                  /*
-                  Callback approach:
-                  - Instead of initalising a seperately variable and then pushing the variable is intalized in the callback
-                  - Await for the set to be set (IMPORTANT)
-                  - Without waiting the state wouldn't update in time.
-                  */
-                  await this.setState(({ isResetModalVisible }) => ({
-                    isResetModalVisible: !isResetModalVisible
-                  }));
-
-                  await AsyncStorage.clear();
-
-                  // Updates the context API state
-                  await value.dispatch({
-                    type: "SET_THEME_MODE",
-                    payload: false
-                  });
-
-                  // Sends an alert message (Used instead of push notifications)
-                  Alert.alert(
-                    "Success",
-                    "Your storage has successfully been reset",
-                    [
-                      {
-                        text: "OK",
-                        onPress: () => console.log("Storage deletion confirmed")
-                      }
-                    ],
-
-                    // Allows you to click outside the alert to close it.
-                    { cancelable: true }
-                  );
-                  this.props.navigation.navigate("WelcomeStack");
-                }}
-                submitDisabled={false}
-              >
-                <Text
-                  colour={
-                    value.isDark
-                      ? this.props.theme.Secondary
-                      : this.props.theme.Primary
-                  }
-                  size="20px"
-                >
-                  Are you sure you want to reset your storage?
                 </Text>
               </Modal>
 
@@ -217,20 +155,20 @@ class Settings extends Component {
                   <Switch
                     value={value.isDark}
                     onValueChange={async () => {
-                      console.log(`isDark (OLD): ${value.isDark}`);
+                      // Destructuring the dispatch function from the value object
+                      const { dispatch } = value;
 
                       // Updates the context API state
-                      await value.dispatch({
+                      await dispatch({
                         type: "SET_THEME_MODE",
-                        payload: !value.isDark
+                        payload: value.isDark
                       });
 
+                      // Set isDakr equal to the inverted value
                       await AsyncStorage.setItem(
                         "isDark",
                         JSON.stringify(!value.isDark)
                       );
-
-                      console.log(await AsyncStorage.getItem("isDark"));
                     }}
                     color={this.props.theme.Tertiary}
                     style={{ marginLeft: 10 }}

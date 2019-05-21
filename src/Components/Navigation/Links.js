@@ -11,37 +11,34 @@ import Text from "../Styled-Components/Text";
 import Section from "../Styled-Components/Section";
 import { withTheme } from "styled-components";
 
+// {action, isDark, theme, icon, text} = props
 const Link = ({ action, isDark, theme, icon, text }) => {
   return (
-    <>
+    <Section
+      row
+      marginRight={10}
+      alignItems="center"
+      backgroundColour={isDark ? theme.Primary : theme.Secondary}
+    >
       <Section
-        row
         marginRight={10}
-        alignItems="center"
         backgroundColour={isDark ? theme.Primary : theme.Secondary}
       >
+        <MaterialIcons
+          name={icon}
+          size={50}
+          color={isDark ? theme.Secondary : theme.Primary}
+        />
+      </Section>
+      <TouchableOpacity onPress={action}>
         <Section
           marginRight={10}
           backgroundColour={isDark ? theme.Primary : theme.Secondary}
         >
-          <MaterialIcons
-            name={icon}
-            size={50}
-            color={isDark ? theme.Secondary : theme.Primary}
-          />
+          <Text colour={isDark ? theme.Secondary : theme.Primary}>{text}</Text>
         </Section>
-        <TouchableOpacity onPress={action}>
-          <Section
-            marginRight={10}
-            backgroundColour={isDark ? theme.Primary : theme.Secondary}
-          >
-            <Text colour={isDark ? theme.Secondary : theme.Primary}>
-              {text}
-            </Text>
-          </Section>
-        </TouchableOpacity>
-      </Section>
-    </>
+      </TouchableOpacity>
+    </Section>
   );
 };
 

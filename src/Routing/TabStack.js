@@ -1,5 +1,7 @@
+// React dependencies
 import React from "react";
 
+// Creates the material tab navigator
 import { createMaterialBottomTabNavigator } from "react-navigation-material-bottom-tabs";
 
 // Custom screens
@@ -10,15 +12,16 @@ import ItemTrackingScreen from "../Screens/ItemTracking";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 
-// clipboard-text-outline
-
 /* 
+
 SearchStack:
 - Creates a stack which can be traversered via props when active
 - When this stack is in use a bottom tab navigator is create with the createMaterialBottomTabNavigator method
+
 Route Config:
 - Screens are defined
 - Each screen has an asssociated icon, for example barcode for barcode search
+
 Tab config:
 - An inital tab is specified
 - BarStyle sets the backgroundColour which is currently blue

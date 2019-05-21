@@ -1,3 +1,4 @@
+// React-Navigation dependencies
 import { createAppContainer, createSwitchNavigator } from "react-navigation";
 
 // React-Navigation Stacks
@@ -17,6 +18,7 @@ const SwitchNavigator = createSwitchNavigator(
   }
 );
 
+// Returns in the index screen
 const AppContainer = createAppContainer(SwitchNavigator); // Creates the react-navigation wrapper for the application (Required for React-Naviga)
 
 export default AppContainer; // Exporting the container for use within the App.js file

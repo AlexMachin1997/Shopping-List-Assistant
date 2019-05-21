@@ -7,8 +7,8 @@ Project Provider:
 - It's exactly like redux's predicatable state container, just this is a native solution as opposed to additional uneeded bloat
 
 Additional information:
-- Context provider - https://reactjs.org/docs/context.html#contextprovider
-- Redux store - https://redux.js.org/api/store
+- Context provider: https://reactjs.org/docs/context.html#contextprovider
+- Redux store: https://redux.js.org/api/store
 */
 import { Provider } from "./src/Context.js";
 

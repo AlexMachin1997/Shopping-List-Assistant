@@ -1,3 +1,4 @@
+// React-navigation dependencies
 import { createStackNavigator } from "react-navigation";
 
 //Import screens here
