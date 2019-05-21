@@ -1,4 +1,4 @@
-# Shopping Assistant &middot; [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/AlexMachin1997/Food-Allergy-Mobile-Application/README.md) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com) [![style: styled-components](https://img.shields.io/badge/style-%F0%9F%92%85%20styled--components-orange.svg?colorB=daa357&colorA=db748e)](https://github.com/styled-components/styled-components)
+# Shopping Assistant &middot; [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/AlexMachin1997/Shopping-List-Assistant/README.md) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](https://github.com/AlexMachin1997/Shopping-List-Assistant/pulls) [![style: styled-components](https://img.shields.io/badge/style-%F0%9F%92%85%20styled--components-orange.svg?colorB=daa357&colorA=db748e)](https://github.com/styled-components/styled-components)
 
 This repository consists of a project of made for educational purposes, it was created as part of a mobile application unit at university.
 
@@ -29,8 +29,7 @@ As of the current version of the mobile application, it is currently capable of 
 - Edit items
 - Edit a shopping list
 - Edit the colour assigned to the shopping list
-- Push notifications
-- GPS tracking
+- GPS tracking via React-Native-Maps
 - Theming
 - Managing AsyncStorage
 - Filter lists based on criteras such as complete and incomplete
@@ -51,6 +50,7 @@ As of the current version of the mobile application, it is currently capable of 
 - [Styled-components](https://github.com/styled-components/styled-components)
 - [MomentJS](https://github.com/moment/moment/)
 - [React-Native-Maps](https://github.com/react-native-community/react-native-maps)
+- [React-native-onboarding-swiper](react-native-onboarding-swiper)
 
 ## Getting started
 
